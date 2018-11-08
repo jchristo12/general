@@ -89,6 +89,26 @@ impute_test <- function(obj.list, test.df, cols){
 }
 
 
+#create dummy variables for all categorical variables
+one_hot_encode <- function(df){
+  #load required packages
+  require(dummies)
+  require(dplyr)
+  #find all categorical variables
+  cat_vars <- df %>%
+    select_if(is.factor) %>%
+    names()
+  #loop through and perform one hot encoding for all cat variables
+  for(i in cat_vars){
+    ohe <- dummy(i, data=df)
+    df <- cbind(df, ohe)
+  }
+  #remove the original categorical variables
+  df_clean <- subset(df, select=-c(cat_vars))
+  
+  return(df_clean)
+}
+
 
 #plot a ROC curve
 rocplot <- function(preds, actuals, ...){
