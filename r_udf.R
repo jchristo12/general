@@ -104,7 +104,7 @@ one_hot_encode <- function(df){
     df <- cbind(df, ohe)
   }
   #remove the original categorical variables
-  df_clean <- subset(df, select=-c(cat_vars))
+  df_clean <- create_subset(df, cat_vars)
   
   return(df_clean)
 }
