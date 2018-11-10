@@ -79,7 +79,7 @@ impute_test <- function(obj.list, test.df, cols){
   for(i in cols){
     n <- which(cols == i)
     if(is.factor(test.df[[i]])){
-      imp <- factor(ifelse(is.na(test.df[[i]]), predict(obj.list[[n]], test.df, type="class"), test.df[[i]]), labels=levels(test.df[[i]]))
+      imp <- factor(ifelse(is.na(test.df[[i]]), predict(obj.list[[n]], test.df, type="class"), test.df[[i]]))
     } else{
       imp <- ifelse(is.na(test.df[[i]]), predict(obj.list[[n]], test.df), test.df[[i]])
     }
