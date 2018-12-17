@@ -8,6 +8,11 @@ missing_values <- function(dataframe){
   return(m)
 }
 
+#remove all objects in workspace except for chosen ones
+workspace_clear <- function(keep){
+  rm(list=ls()[!(ls() %in% keep)])
+}
+  
 #create a correlation heatmap
 cor_heatmap <- function(dataset){
   require(reshape2)
