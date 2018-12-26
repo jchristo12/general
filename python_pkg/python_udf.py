@@ -19,9 +19,9 @@ def corr_heatmap(data):
 # =============================================================================
 # Reads in API keys and stores the desired key
 # =============================================================================
-def read_key(source):
+def read_key(file_path, source):
     import json
-    path = 'C:/Users/Joe/Documents/API_keys.json'
+    path = file_path
     with open(path) as k:
         result = json.load(k)
     api_key = result[source]
