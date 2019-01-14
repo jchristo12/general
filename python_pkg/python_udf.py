@@ -43,6 +43,9 @@ def corr_to_df_summary(dataframe, threshold=0.75):
     corr_triu = corr.where(~np.tril(np.ones(corr.shape)).astype(np.bool))
     #turn the matrix into a pairwise dataframe
     corr_triu = corr_triu.stack()
+    #make it prettier
+    corr_triu.name = 'Pearson R'
+    corr_triu.index.names = ['Var1', 'Var2']
     #return a dataframe corresponding to a correlation threshold
-    result = corr_triu[corr_triu >= threshold]
+    result = corr_triu[corr_triu >= threshold].to_frame()
     return result
