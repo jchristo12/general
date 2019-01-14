@@ -26,3 +26,23 @@ def read_key(file_path, source):
         result = json.load(k)
     api_key = result[source]
     return api_key
+
+# =============================================================================
+# Finds the pairwise correlation of data frame features and returns those above a threshold
+# =============================================================================
+def corr_to_df_summary(dataframe, threshold=0.75):
+    """
+    Reads in a dataframe and turn the correlation matrix into a dataframe listing the pairwise correlations\n
+    Returns the variables that have a correlation above a given threshold (default = 0.75)
+    """
+    #import necessary packages
+    import numpy as np
+    #creates the correlation matrix
+    corr = dataframe.corr(method='pearson')
+    #creates the upper triangle of the correlation matrix
+    corr_triu = corr.where(~np.tril(np.ones(corr.shape)).astype(np.bool))
+    #turn the matrix into a pairwise dataframe
+    corr_triu = corr_triu.stack()
+    #return a dataframe corresponding to a correlation threshold
+    result = corr_triu[corr_triu >= threshold]
+    return result
