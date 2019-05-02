@@ -49,3 +49,15 @@ def corr_to_df_summary(dataframe, threshold=0.75):
     #return a dataframe corresponding to a correlation threshold
     result = corr_triu[corr_triu >= threshold].to_frame()
     return result
+
+# =============================================================================
+# Flips a dictionary's keys and values
+# =============================================================================
+def dict_key_value_flip(dict_):
+    """
+    Takes a dictionary and makes each value a key with the old serving as the new value\n
+    Returns a new dictionary
+    """
+    result = {old: new for new, old_all in dict_.items() for old in old_all}
+    
+    return result
