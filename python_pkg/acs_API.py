@@ -6,13 +6,15 @@ from python_pkg import python_udf as udf
 # =============================================================================
 # Helper functions
 # =============================================================================
-def place_query(vintage, variable, dataset, api_key_path='home/jchristo/Documents/API_keys.json'):
+def place_query(vintage, variable, dataset, api_key_path='home/jchristo/Documents/API_keys.json', labels=False):
     """
     Run a query from the ACS API\n
     Pulls the specified variable for all CDPs (census designated places); also returns the state ID\n
     Vintage = year of the data\n
     Default API key path is set for linux server location
     """
+    assert isinstance(labels, bool)
+
     #API key
     path = api_key_path
     key = udf.read_key(file_path=path, source='census')
@@ -20,8 +22,14 @@ def place_query(vintage, variable, dataset, api_key_path='home/jchristo/Document
     #basic url components
     base_acs = 'https://api.census.gov/data'
     dataset = 'acs/' + dataset
-    #Estimated population for all CDPs in dataset
-    query = 'get=' + variable + '&for=place:*&in=state:*'
+
+    #Return the place and state names or not
+    if labels == False:
+        #Estimated population for all CDPs in dataset
+        query = 'get=' + variable + '&for=place:*&in=state:*'
+    else:
+        query = 'get=' + variable + ',NAME' + '&for=place:*&in=state:*'
+
     #build the full API call
     full_url = base_acs + '/' + vintage + '/' + dataset + '/?' + query + key_url
     #pull the data and put into dataframe
