@@ -90,8 +90,8 @@ def variables_scrape(vintage, dataset):
 
 
 #combines the API call and the pandas df conversion and returns the data series
-def api_data_to_series(vintage, variable, dataset):
-    json = place_query(vintage=vintage, variable=variable, dataset=dataset)
+def api_data_to_series(vintage, variable, dataset, api_key_path, labels=False):
+    json = place_query(vintage=vintage, variable=variable, dataset=dataset, api_key_path=api_key_path, labels=labels)
     df = query_to_df(json)
     series = df[variable]
     return series
