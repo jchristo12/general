@@ -92,3 +92,16 @@ def api_data_to_series(vintage, variable, dataset, api_key, labels=False):
     df = query_to_df(json)
     series = df[variable]
     return series
+
+
+#get all of the entities for the given year and dataset (based on population)
+def acs_get_entities(year, dataset, api_key):
+    #collect the base data
+    base_data = place_query(vintage=year, variable='B01001_001E', dataset=dataset, api_key=api_key, labels=False)
+    base_df = query_to_df(base_data)
+    #create id field
+    base_df['id'] = base_df['state'].str.cat(others=base_df['place'], sep='')
+    #drop the population variable so only identifiers are left
+    base_df.drop(['B01001_001E', 'place', 'state'], axis=1, inplace=True)
+
+    return base_df
