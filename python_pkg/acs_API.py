@@ -102,6 +102,6 @@ def acs_get_entities(year, dataset, api_key):
     #create id field
     base_df['id'] = base_df['state'].str.cat(others=base_df['place'], sep='')
     #drop the population variable so only identifiers are left
-    base_df.drop('B01001_001E', axis=1, inplace=True)
+    base_df.drop(['B01001_001E', 'state', 'place'], axis=1, inplace=True)
 
     return base_df
