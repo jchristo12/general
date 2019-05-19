@@ -6,19 +6,16 @@ from python_pkg import python_udf as udf
 # =============================================================================
 # Helper functions
 # =============================================================================
-def place_query(vintage, variable, dataset, api_key_path='home/jchristo/Documents/API_keys.json', labels=False):
+def place_query(vintage, variable, dataset, api_key, labels=False):
     """
     Run a query from the ACS API\n
     Pulls the specified variable for all CDPs (census designated places); also returns the state ID\n
     Vintage = year of the data\n
-    Default API key path is set for linux server location
     """
     assert isinstance(labels, bool)
 
     #API key
-    path = api_key_path
-    key = udf.read_key(file_path=path, source='census')
-    key_url = '&key=' + key
+    key_url = '&key=' + api_key
     #basic url components
     base_acs = 'https://api.census.gov/data'
     dataset = 'acs/' + dataset
@@ -90,8 +87,8 @@ def variables_scrape(vintage, dataset):
 
 
 #combines the API call and the pandas df conversion and returns the data series
-def api_data_to_series(vintage, variable, dataset, api_key_path, labels=False):
-    json = place_query(vintage=vintage, variable=variable, dataset=dataset, api_key_path=api_key_path, labels=labels)
+def api_data_to_series(vintage, variable, dataset, api_key, labels=False):
+    json = place_query(vintage=vintage, variable=variable, dataset=dataset, api_key=api_key, labels=labels)
     df = query_to_df(json)
     series = df[variable]
     return series
