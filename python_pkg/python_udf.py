@@ -59,5 +59,15 @@ def dict_key_value_flip(dict_):
     Returns a new dictionary
     """
     result = {old: new for new, old_all in dict_.items() for old in old_all}
-    
+
     return result
+
+# =============================================================================
+# Builds an iterable helper tool so that you can acces the next item
+# =============================================================================
+def pairwise(iterable):
+    """Takes an iterable and returns the current and next items"""
+    import itertools
+    a, b = itertools.tee(iterable)
+    next(b, None)
+    return zip(a, b)
