@@ -71,3 +71,14 @@ def pairwise(iterable):
     a, b = itertools.tee(iterable)
     next(b, None)
     return zip(a, b)
+
+# =============================================================================
+# Finds the items not in or in the list
+# =============================================================================
+def in_list(list1, list2, in_=True):
+    if in_ != True:
+        output = [item for item in list2 if item not in list1]
+    else:
+        output = [item for item in list2 if item in list1]
+
+    return output
