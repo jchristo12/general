@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='python_udf',
-      version='0.3.2',
+      version='0.3.3',
       packages=['python_pkg'],
       description='User defined functions for personal use',
       author='Joe Christoff',
