@@ -29,10 +29,16 @@ def place_query(vintage, variable, dataset, api_key, labels=False):
 
     #build the full API call
     full_url = base_acs + '/' + vintage + '/' + dataset + '/?' + query + key_url
-    #pull the data and put into dataframe
-    data = requests.get(full_url).json()
-    #end the function and return the  data
-    return data
+    response = requests.get(full_url)
+    #Check to see if the URL is working
+    if response.status_code == 200:
+        #pull the data and put into dataframe
+        data = response.json()
+        #end the function and return the  data
+        return data
+    else:
+        print('API URL is not working.')
+        exit()
 
 
 def query_to_df(data):
