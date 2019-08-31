@@ -2,6 +2,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 from python_pkg import python_udf as udf
+import sys
 
 # =============================================================================
 # Helper functions
@@ -38,7 +39,7 @@ def place_query(vintage, variable, dataset, api_key, labels=False):
         return data
     else:
         print('API URL is not working.')
-        exit()
+        sys.exit()
 
 
 def query_to_df(data):
