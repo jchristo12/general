@@ -9,7 +9,7 @@ setup(name='python_udf',
       )
 
 setup(name='acs_API',
-      version='0.1.6',
+      version='0.1.7',
       packages=['python_pkg'],
       description='Functions to access the ACS API',
       author='Joe Christoff',
